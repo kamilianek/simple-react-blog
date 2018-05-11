@@ -1,3 +1,4 @@
+import 'foundation-sites/dist/css/foundation.min.css'
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';

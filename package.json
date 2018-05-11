@@ -5,9 +5,11 @@
   "dependencies": {
     "@types/react": "^16.3.12",
     "eslint-config-airbnb": "^16.1.0",
+    "foundation-sites": "^6.4.4-rc1",
     "prop-types": "^15.6.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
+    "react-facebook-login": "^4.0.1",
     "react-foundation": "^0.9.5",
     "react-redux": "^5.0.7",
     "react-router": "^4.2.0",
