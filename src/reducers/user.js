@@ -5,7 +5,7 @@
 const INITIAL_STATE = {
   data: null,
   token: null,
-  role: null,
+  userDetails: null,
   apiUrl: 'https://intense-hamlet-87801.herokuapp.com/api',
 };
 
@@ -15,13 +15,13 @@ export default function userReducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         token: action.token,
-        role: action.role,
+        userDetails: action.userDetails,
       };
     case 'LOGOUT_FINISHED':
       return {
         ...state,
         token: null,
-        role: null,
+        userDetails: null,
       };
     default:
       return state;

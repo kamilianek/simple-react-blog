@@ -12,7 +12,9 @@ import './style.css';
 import actions from '../../actions';
 
 
-const FACEBOOK_APP_ID = '199818057408816';
+const FACEBOOK_APP_ID = '164788700874989';
+const MOCK_TOKEN = process.env.REACT_APP_MOCK_TOKEN || '';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJrYW1pc2l1ckBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4ifQ.zfN3f1UM-GSPP5YTGRSTxmkbLxElFvCax9VmYHe2030';
 
 class LoginView extends React.Component {
   static propTypes = {
@@ -25,6 +27,7 @@ class LoginView extends React.Component {
     super(props);
 
     this.fbLogin = this.fbLogin.bind(this);
+    this.mockLogin = this.mockLogin.bind(this);
   }
 
   componentDidMount() {
@@ -52,22 +55,26 @@ class LoginView extends React.Component {
     window.FB.login((result) => {
       if (result.authResponse) {
         console.log(result.authResponse);
-        fetch(`${apiUrl}/api/auth/facebook`, {
+        fetch(`${apiUrl}/auth/facebook`, {
           method: 'POST',
-          headers: {
-            'x-auth-token': result.authResponse.token,
+          body: {
+            access_token: result.authResponse.token,
           },
         }).then((res) => {
           if (res.status === 404) {
             alert('Error while login with this account, try again :(');
           }
           console.log(res);
-          this.props.didLogin('mock_token', 'mock_role');
+          this.props.didLogin(res.token); // TODO: check how response looks like
         }).catch(alert);
       } else {
         alert('Error: no auth response');
       }
-    });
+    }, { scope: 'public_profile,email' });
+  }
+
+  mockLogin() { // TODO: must be removed, login with mock token to avoid facebook login
+    this.props.didLogin(MOCK_TOKEN);
   }
 
   render() {
