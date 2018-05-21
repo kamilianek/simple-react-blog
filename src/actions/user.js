@@ -4,6 +4,7 @@
 import jwt_decode from 'jwt-decode';
 
 export function didLogin(token) {
+  console.log(token)
   const userDetails = jwt_decode(token);
   return {
     type: 'LOGIN_FINISHED',

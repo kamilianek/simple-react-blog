@@ -14,7 +14,6 @@ import actions from '../../actions';
 
 const FACEBOOK_APP_ID = '164788700874989';
 const MOCK_TOKEN = process.env.REACT_APP_MOCK_TOKEN || '';
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJrYW1pc2l1ckBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4ifQ.zfN3f1UM-GSPP5YTGRSTxmkbLxElFvCax9VmYHe2030';
 
 class LoginView extends React.Component {
   static propTypes = {
@@ -85,7 +84,7 @@ class LoginView extends React.Component {
         <Button
           color={Colors.PRIMARY}
           size={Sizes.LARGE}
-          onClick={this.fbLogin}
+          onClick={this.mockLogin}
         >
           Login!
         </Button>

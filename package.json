@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@types/react": "^16.3.12",
+    "dotenv": "^5.0.1",
     "eslint-config-airbnb": "^16.1.0",
     "foundation-sites": "^6.4.4-rc1",
     "isomorphic-fetch": "^2.2.1",
