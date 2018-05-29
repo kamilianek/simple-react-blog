@@ -12,6 +12,7 @@ export default class AppRouter extends React.Component {
       <HashRouter>
         <div>
           <EnsureLoggedInPath exact path="/" component={HomeView} />
+          <EnsureLoggedInPath exact path="/home" component={HomeView} />
         </div>
       </HashRouter>);
   }

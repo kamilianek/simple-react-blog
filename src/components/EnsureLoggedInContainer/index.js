@@ -34,12 +34,13 @@ class EnsureLoggedInContainer extends Component {
       return this.props.children;
     }
 
-    return <Redirect to="/" />;
+    return <Redirect to="/home" />;
   }
 }
 
 const mapStateToProps = (state) => {
   const user = state.user;
+  console.log(user, user.token);
   return {
     isLoggedIn: !!(user && user.token),
   };
