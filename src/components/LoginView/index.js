@@ -12,7 +12,7 @@ import './style.css';
 import actions from '../../actions';
 
 
-const FACEBOOK_APP_ID = '164788700874989';
+const FACEBOOK_APP_ID = process.env.FACEBOOK_APP_ID || '';
 const MOCK_TOKEN = process.env.REACT_APP_MOCK_TOKEN || '';
 
 class LoginView extends React.Component {
