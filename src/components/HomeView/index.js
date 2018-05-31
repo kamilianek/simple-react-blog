@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { Sizes, Callout, Colors } from 'react-foundation';
 import PropTypes from 'prop-types';
 import MainView from '../MainView';
+import WallView from '../WallView';
 
 class HomeView extends React.Component {
   static propTypes = {
@@ -21,6 +22,7 @@ class HomeView extends React.Component {
             <h5>{`Witaj ${this.props.username} na prostym blogu!`}</h5>
             <p>Teraz możesz przeglądać blogi innych użytkowników</p>
           </Callout>
+          <WallView all />
         </div>
       </MainView>
     );

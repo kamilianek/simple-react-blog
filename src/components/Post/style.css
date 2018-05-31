@@ -1,0 +1,21 @@
+.post-view-container {
+  max-width: 500px;
+  width: auto;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+  background-color: aliceblue;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 30px;
+  margin-bottom: 20px;
+  border: solid dodgerblue;
+}
+
+.post-action-bar {
+  margin-top: 100px;
+  height: 35px;
+  display: flex;
+  flex-direction: row;
+}
+
