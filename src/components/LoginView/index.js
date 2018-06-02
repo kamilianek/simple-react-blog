@@ -84,7 +84,7 @@ class LoginView extends React.Component {
         <Button
           color={Colors.PRIMARY}
           size={Sizes.LARGE}
-          onClick={this.mockLogin}
+          onClick={this.fbLogin}
         >
           Login!
         </Button>
