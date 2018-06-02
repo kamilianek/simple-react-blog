@@ -27,18 +27,20 @@ class Post extends React.Component {
   }
 
   onCommentButtonClick() {
-    this.setState((prevState) => {
-      return { showComments: !prevState.showComments };
-    });
+    this.setState(prevState => ({ showComments: !prevState.showComments }));
   }
 
   render() {
     const { post } = this.props;
     const { showComments } = this.state;
+    const userName = `user_${post.authorId}`;
     return (
       <div className="post-view-container">
         <div className="text-container">
           { post.text }
+        </div>
+        <div className="user-name-label">
+          <h3><a href={userName}>{userName}</a></h3>
         </div>
         <div className="post-action-bar">
           <IconButton type="comment" onPress={this.onCommentButtonClick} />

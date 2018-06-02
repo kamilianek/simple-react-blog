@@ -9,7 +9,6 @@ import 'isomorphic-fetch';
 import { Button, Colors, Sizes } from 'react-foundation';
 
 import './style.css';
-import {moment} from "moment";
 
 class CommentsView extends React.Component {
   static propTypes = {
@@ -28,6 +27,7 @@ class CommentsView extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.submitComment = this.submitComment.bind(this);
   }
 
   componentDidMount() {
@@ -40,7 +40,6 @@ class CommentsView extends React.Component {
       if (res.status === 404) {
         alert('Error while comments loading, try again :(');
       }
-      console.log(res);
       this.setState({ comments: res.data });
     }).catch(alert);
   }
@@ -49,8 +48,37 @@ class CommentsView extends React.Component {
     this.setState({ commentText: event.target.value });
   }
 
+  submitComment() {
+    if (this.state.commentText.length >= 1) {
+      fetch(`${this.props.apiUrl}/comments/${this.props.postId}`, {
+        method: 'POST',
+        headers: {
+          'x-auth-token': this.props.token,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ text: this.state.commentText }),
+      }).then(response => response.json()).then((res) => {
+        if (res.status === 404) {
+          alert('Error while posting comment, try again :(');
+        }
+        const comment = res.data;
+        const newComments = Object.assign(
+          [],
+          [{
+            User: { id: comment.authorId },
+            createdAt: comment.updatedAt,
+            text: comment.text,
+          }, ...this.state.comments],
+        );
+        this.setState({ comments: newComments });
+      }).catch(alert);
+    } else {
+      alert('Cannot post empty comment.');
+    }
+  }
+
   render() {
-    const { comments } = this.state
+    const { comments } = this.state;
     return (
       <div className="comments-view">
         <textarea
@@ -64,14 +92,14 @@ class CommentsView extends React.Component {
           <Button
             color={Colors.PRIMARY}
             size={Sizes.SMALL}
-            onClick={this.mockLogin}
+            onClick={this.submitComment}
           >
             Comment
           </Button>
         </div>
         { comments.map(comment => (
           <div className="comment-container">
-            <h1>{comment.User.email}</h1>
+            <h1>{`user_${comment.User.id}`}</h1>
             <h2>{comment.createdAt}</h2>
             <p>{comment.text}</p>
           </div>

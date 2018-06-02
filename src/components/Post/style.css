@@ -19,3 +19,12 @@
   flex-direction: row;
 }
 
+.user-name-label {
+  margin-top: 25px;
+}
+
+.post-view-container h3 {
+  font-size: 20px;
+  text-align: right;
+  font-weight: bold;
+}

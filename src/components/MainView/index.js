@@ -10,9 +10,9 @@ class MainView extends React.Component {
         <div className="menu-container">
           <div className="menu-active-state-example">
             <Menu>
-              <MenuItem isActive><a>Strona główna</a></MenuItem>
+              <MenuItem><a>Strona główna</a></MenuItem>
               <MenuItem><a>Mój blog</a></MenuItem>
-              <MenuItem><a>Moi przyjaciele</a></MenuItem>
+              <MenuItem><a href="#/friends">Moi przyjaciele</a></MenuItem>
               <MenuItem><a>Konto</a></MenuItem>
               <MenuItem><a>Wyloguj</a></MenuItem>
             </Menu>
