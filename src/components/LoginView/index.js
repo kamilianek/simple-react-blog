@@ -6,6 +6,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Colors, Sizes } from 'react-foundation';
 import 'isomorphic-fetch';
+import { withAlert } from 'react-alert';
 import { PropTypes } from 'prop-types';
 import './style.css';
 
@@ -32,7 +33,7 @@ class LoginView extends React.Component {
   componentDidMount() {
     window.fbAsyncInit = function () {
       window.FB.init({
-        appId: FACEBOOK_APP_ID,
+        appId: '164788700874989',
         cookie: true,
         xfbml: true,
         version: 'v2.1',
@@ -53,19 +54,23 @@ class LoginView extends React.Component {
     const { apiUrl } = this.props;
     window.FB.login((result) => {
       if (result.authResponse) {
-        console.log(result.authResponse);
         fetch(`${apiUrl}/auth/facebook`, {
           method: 'POST',
-          body: {
-            access_token: result.authResponse.token,
+          headers: {
+            'Content-Type': 'application/json',
           },
-        }).then((res) => {
-          if (res.status === 404) {
-            alert('Error while login with this account, try again :(');
-          }
-          console.log(res);
-          this.props.didLogin(res.token); // TODO: check how response looks like
-        }).catch(alert);
+          body: JSON.stringify({
+            access_token: result.authResponse.accessToken,
+          }),
+        })
+          .then(res => res.json())
+          .then((res) => {
+            if (res.status === 404) {
+              this.props.alert.error('Error while login with this account, try again :(', { timeout: 5000 });
+            }
+            this.props.didLogin(res.data);
+            this.props.alert.success('Login successful :)');
+          }).catch(err => this.props.alert.error(err, { timeout: 5000 }));
       } else {
         alert('Error: no auth response');
       }
@@ -101,4 +106,4 @@ const mapSateToProps = state => ({
   apiUrl: state.user.apiUrl,
 });
 
-export default connect(mapSateToProps, mapDispatchToProps)(LoginView);
+export default withAlert(connect(mapSateToProps, mapDispatchToProps)(LoginView));
