@@ -13,6 +13,7 @@ export function didLogin(token) {
 }
 
 export function didLogout() {
+  console.log('logout...');
   return {
     type: 'LOGOUT_FINISHED',
   };
@@ -28,4 +29,5 @@ export function followUser(newFollowedUser) {
 export default {
   didLogin,
   didLogout,
+  followUser,
 };

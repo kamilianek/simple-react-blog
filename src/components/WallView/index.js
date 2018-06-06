@@ -30,7 +30,7 @@ class WallView extends React.Component {
   getNextPosts() {
     const { apiUrl, token } = this.props;
     const { offset } = this.state;
-
+    console.log('fetching posts...');
     fetch(`${apiUrl}/posts?offset=${offset}&limit=50`, {
       method: 'GET',
       headers: {
@@ -40,12 +40,13 @@ class WallView extends React.Component {
       if (res.status === 404) {
         alert('Error while loading posts, try again :(');
       }
-      console.log('result: ', res);
+      console.log('fetched: ', res);
       this.setState({ offset: offset + 50, posts: res.data });
     }).catch(alert);
   }
 
   render() {
+    console.log('posts: ', this.state.posts);
     return (
       <div className="wall-view-container">
         {
