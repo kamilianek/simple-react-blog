@@ -1,0 +1,9 @@
+.alert-style {
+  height: 100px;
+  width: 350px;
+  background-color: dodgerblue;
+  border: solid royalblue;
+  color: white;
+  font-size: 20px;
+  padding: 20px;
+}

@@ -22,6 +22,8 @@ class EnsureLoggedInContainer extends Component {
     } = this.props;
     const pathname = location && location.pathname;
 
+    console.log('location: ', location);
+
     if (!isLoggedIn) {
       switch (pathname) {
         /* put here any other no-login-required paths */
@@ -40,6 +42,7 @@ class EnsureLoggedInContainer extends Component {
 
 const mapStateToProps = (state) => {
   const user = state.user;
+  console.log(user, user.token);
   return {
     isLoggedIn: !!(user && user.token),
   };

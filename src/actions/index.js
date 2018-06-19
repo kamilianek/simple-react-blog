@@ -3,7 +3,9 @@
  */
 
 import user from './user';
+import content from './content';
 
 export default {
   user,
+  content,
 };
