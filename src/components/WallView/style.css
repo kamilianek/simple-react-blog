@@ -4,3 +4,33 @@
   width: 100%;
   align-items: center;
 }
+
+.next-button {
+  position: relative;
+  display: block;
+  margin: 50px auto;
+}
+
+.text-areat {
+  position: relative;
+  width: 50%;
+}
+
+.loading-animation {
+  position: relative;
+  display: block;
+  margin: 50px auto;
+}
+
+.post-creator-container {
+  position: relative;
+  display: block;
+  max-width: 500px;
+  width: auto;
+  margin: 10px auto 100px;
+}
+
+.publish-button {
+  position: absolute;
+  right: 0px;
+}

@@ -1,5 +1,5 @@
 /**
- * Created by kamilianek on 02.06.18.
+ * Created by kamilianek on 18.06.18.
  */
 
 import React from 'react';
@@ -8,20 +8,20 @@ import MainView from '../MainView';
 import WallView from '../WallView';
 
 
-class FriendsView extends React.Component {
+class MyBlogView extends React.Component {
   render() {
     return (
       <MainView>
         <div className="callout-sizes-example">
           <Callout color={Colors.PRIMARY} size={Sizes.LARGE}>
-            <h5>Twoi przyjaciele</h5>
-            <p>Przeglądaj blogi osób, które obserwujesz</p>
+            <h5>To jest Twój blog</h5>
+            <p>Dodawaj posty, pokaż siebie</p>
           </Callout>
-          <WallView friendsPosts />
+          <WallView myPosts />
         </div>
       </MainView>
     );
   }
 }
 
-export default FriendsView;
+export default MyBlogView;

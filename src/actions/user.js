@@ -19,15 +19,8 @@ export function didLogout() {
   };
 }
 
-export function followUser(newFollowedUser) {
-  return {
-    type: 'FOLLOW_USER',
-    newFollowedUser,
-  };
-}
 
 export default {
   didLogin,
   didLogout,
-  followUser,
 };

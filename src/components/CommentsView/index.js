@@ -23,7 +23,7 @@ class CommentsView extends React.Component {
 
     this.state = {
       comments: [],
-      commentText: 'Write your comment',
+      commentText: 'Napisz co myślisz :)',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -49,6 +49,7 @@ class CommentsView extends React.Component {
   }
 
   submitComment() {
+    console.log('state in commentview: ', this.props);
     if (this.state.commentText.length >= 1) {
       fetch(`${this.props.apiUrl}/comments/${this.props.postId}`, {
         method: 'POST',
@@ -97,7 +98,7 @@ class CommentsView extends React.Component {
             Comment
           </Button>
         </div>
-        { comments.map(comment => (
+        { (comments || []).map(comment => (
           <div className="comment-container">
             <h1>{`user_${comment.User.id}`}</h1>
             <h2>{comment.createdAt}</h2>

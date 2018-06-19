@@ -8,6 +8,8 @@ import faComment from '@fortawesome/fontawesome-free-solid/faComment';
 import faThumbsUp from '@fortawesome/fontawesome-free-solid/faThumbsUp';
 import faThumbsDown from '@fortawesome/fontawesome-free-solid/faThumbsDown';
 import faFollow from '@fortawesome/fontawesome-free-solid/faEye';
+import faDeletePost from '@fortawesome/fontawesome-free-solid/faTrashAlt';
+import faEditPost from '@fortawesome/fontawesome-free-solid/faWrench';
 
 import './style.css';
 
@@ -16,13 +18,16 @@ const icons = {
   dislike: faThumbsDown,
   comment: faComment,
   follow: faFollow,
+  deletePost: faDeletePost,
+  editPost: faEditPost,
 };
 
 const colors = {
   like: 'green',
-  dislike: 'red',
+  deletePost: 'red',
   comment: 'gold',
-  follow: 'brown',
+  follow: 'green',
+  edit: 'grey',
 };
 
 class IconButton extends React.Component {

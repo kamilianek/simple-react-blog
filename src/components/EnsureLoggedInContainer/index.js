@@ -34,7 +34,7 @@ class EnsureLoggedInContainer extends Component {
       return this.props.children;
     }
 
-    return <Redirect to="/home" />;
+    return <Redirect to="/" />;
   }
 }
 

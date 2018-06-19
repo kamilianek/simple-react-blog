@@ -66,10 +66,10 @@ class LoginView extends React.Component {
           .then(res => res.json())
           .then((res) => {
             if (res.status === 404) {
-              this.props.alert.error('Error while login with this account, try again :(', { timeout: 5000 });
+              this.props.alert.error('Nie udało się zalogować, spróbuj ponownie :(', { timeout: 5000 });
             }
             this.props.didLogin(res.data);
-            this.props.alert.success('Login successful :)');
+            this.props.alert.success('Logowanie pomyślne :)');
           }).catch(err => this.props.alert.error(err, { timeout: 5000 }));
       } else {
         alert('Error: no auth response');
@@ -77,8 +77,8 @@ class LoginView extends React.Component {
     }, { scope: 'public_profile,email' });
   }
 
-  mockLogin() { // TODO: must be removed, login with mock token to avoid facebook login
-    this.props.didLogin(MOCK_TOKEN);
+  mockLogin(mock_token) {
+    this.props.didLogin(mock_token);
   }
 
   render() {
@@ -89,7 +89,7 @@ class LoginView extends React.Component {
         <Button
           color={Colors.PRIMARY}
           size={Sizes.LARGE}
-          onClick={this.fbLogin}
+          onClick={() => this.fbLogin()}
         >
           Login!
         </Button>
