@@ -22,6 +22,8 @@ class EnsureLoggedInContainer extends Component {
     } = this.props;
     const pathname = location && location.pathname;
 
+    console.log('location: ', location);
+
     if (!isLoggedIn) {
       switch (pathname) {
         /* put here any other no-login-required paths */

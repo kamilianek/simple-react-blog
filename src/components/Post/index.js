@@ -36,7 +36,7 @@ class Post extends React.Component {
 
     this.state = {
       showComments: false,
-      userFollowed: false,
+      followId: false,
       deleteModal: false,
       unfollowModal: false,
     };
@@ -56,7 +56,6 @@ class Post extends React.Component {
   getFollowersList() {
     const { post, apiUrl, token } = this.props;
     const authorId = post.User ? post.User.id : post.authorId;
-
     return fetch(`${apiUrl}/follows`, {
       method: 'GET',
       headers: {
@@ -70,10 +69,16 @@ class Post extends React.Component {
       }
       if (res.status === 404) {
         this.props.alert.error('Nie udało się zaobserwować użytkownika :(');
-      } else if (res.data.map(foll => foll.id).includes(authorId)) {
-        this.toggleUnfollowModal();
       } else {
-        this.followUser();
+        const follIds = res.data
+          .map(foll => (foll.userId === authorId ? foll.id : null))
+          .filter(id => !!id);
+        if (follIds.length > 0) {
+          this.setState({ followId: follIds[0] });
+          this.toggleUnfollowModal();
+        } else {
+          this.followUser();
+        }
       }
     }).catch(err => this.props.alert.error(err.message));
   }
@@ -98,9 +103,8 @@ class Post extends React.Component {
   }
 
   unfollowUser() {
-    const { post, apiUrl, token } = this.props;
-    const authorId = post.User ? post.User.id : post.authorId;
-    fetch(`${apiUrl}/follows/${authorId}`, {
+    const { apiUrl, token } = this.props;
+    fetch(`${apiUrl}/follows/${this.state.followId}`, {
       method: 'DELETE',
       headers: {
         'x-auth-token': token,
@@ -143,7 +147,7 @@ class Post extends React.Component {
           { post.text }
         </div>
         <div className="user-name-label">
-          <h3><a href={`#/${userName}`}>{userName}</a></h3>
+          <h3>{userName}</h3>
         </div>
         <div className="post-action-bar">
           <IconButton type="comment" onPress={this.onCommentButtonClick} />

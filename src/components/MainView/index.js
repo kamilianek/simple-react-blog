@@ -20,6 +20,7 @@ class MainView extends React.Component {
     e.preventDefault();
     this.props.didLogout();
   }
+
   render() {
     return (
       <div className="home-view-container">
@@ -29,7 +30,6 @@ class MainView extends React.Component {
               <MenuItem><a href="#/home">Strona główna</a></MenuItem>
               <MenuItem><a href="#/myBlog">Mój blog</a></MenuItem>
               <MenuItem><a href="#/friends">Moi przyjaciele</a></MenuItem>
-              <MenuItem><a>Konto</a></MenuItem>
               <MenuItem><a href="#logout" onClick={this.doLogout}>Wyloguj</a></MenuItem>
             </Menu>
           </div>

@@ -64,15 +64,12 @@ class WallView extends React.Component {
     if (this.props.friendsPosts) {
       endpointType = 'posts';
     }
-
-    console.log('fetching next posts...');
     fetch(`${apiUrl}/${endpointType}?offset=${offset}&limit=${POST_LIMIT}`, {
       method: 'GET',
       headers: {
         'x-auth-token': token,
       },
     }).then(response => response.json()).then((res) => {
-      console.log(this.props.friendsPosts, res);
       if (res.errors && res.errors.status === 401) {
         this.props.didLogout();
         this.props.alert.error('Sesja wygasła, zaloguj się ponownie');
@@ -92,11 +89,14 @@ class WallView extends React.Component {
     }).catch(err => this.props.alert.error(err.message));
   }
 
+  setUserToDisplay(id) {
+    this.setState({ userToDisplay: id });
+  }
+
   getPrevPosts() {
     const { apiUrl, token } = this.props;
     const { offset } = this.state;
     const newOffset = offset - POST_LIMIT;
-    console.log('fetching prev posts...');
     fetch(`${apiUrl}/posts?offset=${newOffset}&limit=${POST_LIMIT}`, {
       method: 'GET',
       headers: {
@@ -149,7 +149,6 @@ class WallView extends React.Component {
 
   deletePost(postId) {
     const { apiUrl, token } = this.props;
-    console.log(apiUrl, token);
 
     fetch(`${apiUrl}/posts/${postId}`, {
       method: 'DELETE',
@@ -195,15 +194,19 @@ class WallView extends React.Component {
 
   render() {
     const { posts, isLoading } = this.state;
-    console.log('isLoading: ', isLoading);
-    console.log(posts)
     return (
       <div>
         {
           this.props.myPosts ? this.renderPostCreatorView() : null
         }
         <div className="wall-view-container">
-          { posts.filter(post => post.text !== null).map(post => (<Post myPosts={this.props.myPosts} onEdit={this.editPost} onDelete={this.deletePost} post={post} />)) }
+          { posts.filter(post => post.text !== null).map(post => (
+            <Post
+              myPosts={this.props.myPosts}
+              onEdit={this.editPost}
+              onDelete={this.deletePost}
+              post={post}
+            />)) }
           { posts.length % POST_LIMIT === 0 && !isLoading ? <Button className="next-button" color="primary" onClick={this.getNextPosts}>Więcej</Button> : null }
           { isLoading ? <ReactLoading className="loading-animation" type="cylon" color="black" height={70} width={70} /> : null}
         </div>

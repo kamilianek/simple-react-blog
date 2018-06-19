@@ -12,6 +12,7 @@ export default class EnsureLoggedInPath extends Component {
       ...rest
     } = this.props;
 
+    console.log('props', this.props)
     return (
       <Route
         {...rest}
