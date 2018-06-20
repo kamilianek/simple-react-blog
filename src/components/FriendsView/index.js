@@ -15,7 +15,7 @@ class FriendsView extends React.Component {
         <div className="callout-sizes-example">
           <Callout color={Colors.PRIMARY} size={Sizes.LARGE}>
             <h5>Twoi przyjaciele</h5>
-            <p>Przeglądaj blogi osób, które obserwujesz</p>
+            <p>Przeglądaj posty swoich przyjaciół, oglądaj Waszą wspólną tablicę</p>
           </Callout>
           <WallView friendsPosts />
         </div>

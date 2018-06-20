@@ -56,7 +56,7 @@ class Post extends React.Component {
   getFollowersList() {
     const { post, apiUrl, token } = this.props;
     const authorId = post.User ? post.User.id : post.authorId;
-    return fetch(`${apiUrl}/follows`, {
+    fetch(`${apiUrl}/follows`, {
       method: 'GET',
       headers: {
         'x-auth-token': token,
@@ -153,7 +153,7 @@ class Post extends React.Component {
           <IconButton type="comment" onPress={this.onCommentButtonClick} />
           <IconButton type="follow" onPress={() => this.handleFollowClick()} />
           { myPosts || role === 'admin' ? <IconButton type="deletePost" onPress={() => this.toggleDeleteModal()} /> : null }
-          { myPosts ? <IconButton type="editPost" onPress={() => this.props.onEdit(post.id)} /> : null }
+          { myPosts ? <IconButton type="editPost" onPress={() => this.props.onEdit(post)} /> : null }
         </div>
         { showComments ? <CommentsView postId={post.id} /> : null }
 
