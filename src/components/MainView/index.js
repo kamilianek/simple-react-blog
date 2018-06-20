@@ -29,7 +29,7 @@ class MainView extends React.Component {
             <Menu>
               <MenuItem><a href="#/home">Strona główna</a></MenuItem>
               <MenuItem><a href="#/myBlog">Mój blog</a></MenuItem>
-              <MenuItem><a href="#/friends">Moi przyjaciele</a></MenuItem>
+              <MenuItem><a href="#/friends">Nasza paczka</a></MenuItem>
               <MenuItem><a href="#logout" onClick={this.doLogout}>Wyloguj</a></MenuItem>
             </Menu>
           </div>

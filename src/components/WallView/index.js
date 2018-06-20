@@ -39,6 +39,8 @@ class WallView extends React.Component {
       offset: 0,
       posts: [],
       isLoading: false,
+      editMode: false,
+      editedPostId: null,
     };
 
     this.submitPost = this.submitPost.bind(this);
@@ -47,6 +49,7 @@ class WallView extends React.Component {
     this.getPrevPosts = this.getPrevPosts.bind(this);
     this.deletePost = this.deletePost.bind(this);
     this.editPost = this.editPost.bind(this);
+    this.onEdit = this.onEdit.bind(this);
 
     this.getNextPosts();
   }
@@ -89,8 +92,8 @@ class WallView extends React.Component {
     }).catch(err => this.props.alert.error(err.message));
   }
 
-  setUserToDisplay(id) {
-    this.setState({ userToDisplay: id });
+  onEdit(post) {
+    this.setState({ editMode: true, newPostText: post.text, editedPostId: post.id });
   }
 
   getPrevPosts() {
@@ -172,8 +175,28 @@ class WallView extends React.Component {
     }).catch(err => this.props.alert.error(err.message));
   }
 
-  editPost(postId) {
+  editPost() {
     const { apiUrl, token } = this.props;
+
+    fetch(`${apiUrl}/posts/${this.state.editedPostId}`, {
+      method: 'PUT',
+      headers: {
+        'x-auth-token': token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ text: this.state.newPostText }),
+    }).then(response => response.json()).then((res) => {
+      if (res.errors && res.errors.status === 401) {
+        this.props.didLogout();
+        this.props.alert.error('Sesja wygasła, zaloguj się ponownie');
+      }
+      if (res.status === 404) {
+        this.props.alert.error('Nie udało się edytować posta :(');
+      } else {
+        this.props.alert.success('Post został zedytowany');
+        this.setState({ editMode: false, newPostText: '', editedPostId: null });
+      }
+    }).catch(err => this.props.alert.error(err.message));
 
   }
 
@@ -184,10 +207,17 @@ class WallView extends React.Component {
           className="text-area"
           rows={7}
           maxLength={255}
-          value={this.state.newPost}
+          value={this.state.newPostText}
           onChange={this.handleChange}
         />
-        <Button className="publish-button" color="primary" onClick={this.submitPost}>Publikuj</Button>
+        {
+          this.state.editMode ?
+            <div className="edit-buttons-container">
+              <Button color="primary" onClick={() => this.editPost()}>Zatwierdź</Button> {' '}
+              <Button color="secondary" onClick={() => this.setState({ editMode: false, newPostText: '', editedPostId: null })}>Anuluj</Button>
+            </div> :
+            <Button className="publish-button" color="primary" onClick={this.submitPost}>Publikuj</Button>
+        }
       </div>
     );
   }
@@ -203,7 +233,7 @@ class WallView extends React.Component {
           { posts.filter(post => post.text !== null).map(post => (
             <Post
               myPosts={this.props.myPosts}
-              onEdit={this.editPost}
+              onEdit={this.onEdit}
               onDelete={this.deletePost}
               post={post}
             />)) }
